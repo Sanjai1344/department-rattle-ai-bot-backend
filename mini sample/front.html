@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Department Rattle AI Bot - Your AI-powered departmental assistant" />
+    <title>Department Rattle AI Bot</title>
+    
+
+    <!-- Simple, self-contained styles -->
+    <style>
+      :root{
+        --accent:#4ECDC4;
+        --accent-2:#FF6B6B;
+        --bg:#f7f9fb;
+        --card:#ffffff;
+        --muted:#666666;
+        --maxw:1100px;
+      }
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        background:linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+        color:#111;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        line-height:1.45;
+      }
+
+      .container{max-width:var(--maxw);margin:0 auto;padding:28px;}
+
+      header{
+        display:flex;align-items:center;justify-content:space-between;padding:8px 0;
+      }
+      .brand{
+        display:flex;gap:12px;align-items:center;
+      }
+      .logo{
+        width:48px;height:48px;border-radius:10px;
+        background:linear-gradient(135deg,var(--accent),var(--accent-2));
+        display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
+        box-shadow:0 6px 18px rgba(78,205,196,0.14);
+      }
+      .site-title{font-size:1.1rem;font-weight:700}
+      nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-weight:600}
+      nav a.button{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+      
+      /* Hero */
+      .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:28px 0}
+      .hero h1{font-size:2rem;margin:0 0 12px}
+      .hero p{color:var(--muted);margin:0 0 20px}
+      .ctas{display:flex;gap:12px;flex-wrap:wrap}
+      .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;border:none;font-weight:700;cursor:pointer;text-decoration:none}
+      .btn.secondary{background:#fff;border:2px solid #eee;color:#111}
+      .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 30px rgba(16,24,40,0.06)}
+      
+      /* Features */
+      .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+      .feature{background:linear-gradient(180deg,#fff, #fbfcfd);padding:18px;border-radius:10px;border:1px solid #f0f3f5}
+      .feature h3{margin:0 0 8px;font-size:1.05rem}
+      .feature p{margin:0;color:var(--muted);font-size:0.95rem}
+      
+      /* Footer */
+      footer{margin-top:42px;padding:20px 0;color:var(--muted);font-size:0.95rem;text-align:center}
+      
+      /* Responsive */
+      @media (max-width:980px){
+        .hero{grid-template-columns:1fr; text-align:center}
+        nav{display:none}
+        .features{grid-template-columns:repeat(2,1fr)}
+      }
+      @media (max-width:560px){
+        .features{grid-template-columns:1fr}
+        .logo{width:42px;height:42px}
+        .hero h1{font-size:1.5rem}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="brand">
+          <div class="logo">DR</div>
+          <div>
+            <div class="site-title">Department Rattle</div>
+            <div style="font-size:0.85rem;color:var(--muted)">AI-powered Department Assistant</div>
+          </div>
+        </div>
+
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#contact">Contact</a>
+          <a class="button" id="open-chat" href="#" onclick="openChat()">Open Chat</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <h1>Save staff time. Find records in seconds.</h1>
+            <p>Department Rattle is a lightweight AI assistant for your department — answers FAQs, fetches syllabi, timetables, faculty info, supports inspections and raises tickets when needed.</p>
+
+            <div class="ctas">
+              <a class="btn" href="#" onclick="openChat()">Try the Chat</a>
+              <a class="btn secondary" href="#features">See Features</a>
+            </div>
+
+            <div style="margin-top:20px;color:var(--muted);font-size:0.95rem">
+              <strong>Quick:</strong> Works with your existing documents.  
+              <strong>Secure:</strong> Use read-only Hugging Face token and private model options.  
+              <strong>Deploy:</strong> Docker + Compose for easy setup.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0">Live demo</h3>
+            <p style="color:var(--muted)">If your backend & Streamlit frontend are running locally, click the button to open the chat UI in a new tab:</p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a class="btn" id="open-streamlit" href="#" onclick="openStreamlit()">Open Streamlit UI</a>
+              <a class="btn secondary" id="open-api" href="#" onclick="openAPI()">Open API Health</a>
+            </div>
+
+            <hr style="margin:16px 0;border:none;border-top:1px solid #f1f4f6" />
+
+            <div style="font-size:0.9rem;color:var(--muted)">
+              <strong>Local URLs</strong>
+              <ul style="padding-left:18px;margin:8px 0 0;color:var(--muted)">
+                <li><code>Streamlit: http://localhost:8501</code></li>
+                <li><code>Backend API: http://localhost:5000/api</code></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="features">
+          <h2 style="margin-top:30px">Features</h2>
+          <div class="features">
+            <div class="feature">
+              <h3>🔎 Document Q&A</h3>
+              <p>Semantic search over syllabi, timetables, notices and forms using embeddings + vector DB. Answers show source documents.</p>
+            </div>
+
+            <div class="feature">
+              <h3>📄 Form & File Fetch</h3>
+              <p>Download forms and records quickly. Useful during inspections and surveys to present required documents.</p>
+            </div>
+
+            <div class="feature">
+              <h3>⚠️ Ticketing & Escalation</h3>
+              <p>When the bot can’t answer, it can raise a ticket (email/Google Sheet/Airtable) to the responsible staff automatically.</p>
+            </div>
+
+            <div class="feature">
+              <h3>👥 User Profiles</h3>
+              <p>Keep light user context (role: staff/student/inspector) to tailor replies and access control for sensitive docs.</p>
+            </div>
+
+            <div class="feature">
+              <h3>🔒 Security & Privacy</h3>
+              <p>Supports on-prem/vector DB options (Pinecone/Weaviate/Milvus) and read-only Hugging Face tokens for model access.</p>
+            </div>
+
+            <div class="feature">
+              <h3>🚀 Easy Deployment</h3>
+              <p>Dockerfile + docker-compose are ready — deploy locally or to your cloud provider (Render / Heroku / AWS).</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="how" style="margin-top:28px">
+          <h2>How it works</h2>
+          <div class="card" style="margin-top:12px">
+            <ol style="margin:0 0 0 18px;color:var(--muted)">
+              <li>Upload department docs (SOPs, notices, timetables).</li>
+              <li>Convert text → chunk → embeddings → store in vector DB.</li>
+              <li>User asks question → backend retrieves top chunks → LLM answers using context.</li>
+              <li>Answers returned with citation & quick actions (download form, raise ticket).</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="contact" style="margin-top:28px">
+          <h2>Contact & Next Steps</h2>
+          <div class="card" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+            <div style="flex:1;min-width:220px">
+              <p style="margin:0;color:var(--muted)">Want me to wire this into your department? I can:</p>
+              <ul style="color:var(--muted)"><li>Prepare `.env`, Docker-compose, and run scripts</li><li>Convert your documents into the knowledge base</li><li>Deploy on your local server or cloud</li></ul>
+            </div>
+            <div style="min-width:200px;text-align:right">
+              <a class="btn" href="mailto:team@omnitrixx.example?subject=Department%20Rattle%20Bot%20Help">Email Team</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        Developed by Team OMNITRIXX for Smart India Hackathon 2025 · <span style="color:var(--muted)">Local demo: streamlit → <code>http://localhost:8501</code></span>
+      </footer>
+    </div>
+
+    <!-- Small scripts for quick actions -->
+   <script>
+  const GEMINI_API_KEY = "AIzaSyB7gLfbtN_BZ0Y3flIsUvCRHX7xy_szF6k";   // your key
+  const API_URL = "http://localhost:5000/api";
+
+  function openStreamlit(event){
+    event.preventDefault();
+    window.open("http://localhost:8501", "_blank");
+  }
+
+  function openAPI(event){
+    event.preventDefault();
+    window.open(API_URL + "/health", "_blank");
+  }
+
+  function openChat(event){
+    event.preventDefault();
+    openStreamlit(event);
+  }
+
+  document.getElementById('open-streamlit').addEventListener('click', openStreamlit);
+  document.getElementById('open-api').addEventListener('click', openAPI);
+  document.getElementById('open-chat').addEventListener('click', openChat);
+</script>
+
+
+  </body>
+</html>
